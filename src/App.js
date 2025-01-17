@@ -260,7 +260,7 @@ const WordChainGame = () => {
     <Card className="w-full max-w-4xl mx-auto">
       <CardHeader>
         <CardTitle className="flex justify-between items-center flex-wrap gap-4">
-          <span>Word Chain</span>
+          <span>WordWave</span>
           <div className="flex items-center gap-4">
             <Award className="text-yellow-500" />
             <span className="text-xl">{score}</span>
