@@ -3,9 +3,6 @@ import Navigation from 'src/components/ui/Navigation';
 import { Card, CardContent, CardHeader, CardTitle } from "src/components/ui/card";
 
 const Home: React.FC = () => {
-  return <h1>Welcome to the Home Page</h1>;
-  
-  
   return(
       <div className="min-h-screen bg-gray-50">
     <Navigation />

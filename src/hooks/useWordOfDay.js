@@ -19,6 +19,7 @@ export const useWordOfDay = () => {
       setIsLoading(true);
       const { word: storedWord, date: storedDate } = getStoredWordData();
       const today = new Date().toISOString().split('T')[0];
+      console.log("TODAY'S DATE:  ", today);
 
       if (storedWord && storedDate === today) {
         setWordOfTheDay(storedWord);
