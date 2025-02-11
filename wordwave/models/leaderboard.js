@@ -1,4 +1,4 @@
-// models/Leaderboard.js
+
 import mongoose from 'mongoose';
 
 const leaderboardSchema = new mongoose.Schema({

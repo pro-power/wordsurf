@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
+import Leaderboard from "./models/Leaderboard.js";
 
 dotenv.config();
 
@@ -22,13 +23,6 @@ const db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 db.once("open", () => console.log("Connected to MongoDB"));
 
-// Leaderboard Schema
-const leaderboardSchema = new mongoose.Schema({
-  name: String,
-  score: Number,
-});
-
-const Leaderboard = mongoose.model("Leaderboard", leaderboardSchema);
 
 // API Route to Get Top 5 Scores
 app.get("/api/leaderboard", async (req, res) => {
@@ -49,6 +43,7 @@ app.post("/api/leaderboard", async (req, res) => {
     await newScore.save();
     res.status(201).json({ message: "Score saved successfully" });
   } catch (err) {
+    console.error('Could not save score', err);
     res.status(500).json({ message: "Error saving score" });
   }
 });
