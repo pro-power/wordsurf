@@ -52,7 +52,7 @@ const Navigation: React.FC = () => {
                 <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
                   <span className="text-white font-bold">W</span>
                 </div>
-                <span className="text-xl font-bold text-blue-600">WordWave</span>
+                <span className="text-xl font-bold text-blue-600">WordSurf</span>
               </Link>
             </div>
 
