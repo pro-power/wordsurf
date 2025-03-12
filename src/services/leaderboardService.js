@@ -1,7 +1,5 @@
-// leaderboardService.js
-const API_URL = process.env.NODE_ENV === 'production' 
-  ? "https://https://dominole.vercel.app/api/leaderboard"  
-  : "http://localhost:5000/api/leaderboard";
+const API_URL = "http://localhost:5000/api/leaderboard";
+
 
 const leaderboardService = {
   async getTopScores() {
