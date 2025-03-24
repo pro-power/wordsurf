@@ -64,7 +64,7 @@ const WaterWave = ({
         
         // Set color with decreasing opacity for each successive wave
         const alpha = 0.6 - (index * 0.15);
-        const color = fillColor.replace(/[\d\.]+\)$/, `${alpha})`);
+        const color = fillColor.replace(/[d\.]+\)$/, `${alpha})`);
         ctx.fillStyle = color;
         ctx.fill();
       });
