@@ -8,18 +8,14 @@ import { Card, CardContent, CardHeader, CardTitle } from './components/ui/card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from './components/ui/dialog';
 import { Alert, AlertDescription } from './components/ui/alert';
 import { Badge } from './components/ui/badge';
-import { Slider } from './components/ui/slider';
-import WordChain from './components/WordChain';
 import { 
-  Clock, 
-  Star, 
+  Clock,  
   CheckCircle, 
   XCircle, 
   BookOpen, 
   Trophy, 
   Sparkles, 
   AlertTriangle,
-  ArrowRight,
   AlignJustify,
   BookOpenCheck
 } from 'lucide-react';

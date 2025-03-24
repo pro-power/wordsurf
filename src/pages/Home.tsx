@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Input } from "src/components/ui/input";
-import { Card, CardContent, CardHeader, CardTitle } from "src/components/ui/card";
+import { Card, CardContent } from "src/components/ui/card";
 import { Badge } from "src/components/ui/badge";
 import Navigation from 'src/components/ui/Navigation';
 import leaderboardService from 'src/services/leaderboardService';
