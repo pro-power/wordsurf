@@ -4,7 +4,7 @@ import leaderboardService from './services/leaderboardService';
 import Navigation from './components/ui/Navigation';
 import { Input } from './components/ui/input';
 import { Button } from './components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from './components/ui/card';
+import { Card, CardContent } from './components/ui/card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from './components/ui/dialog';
 import { Alert, AlertDescription } from './components/ui/alert';
 import { Badge } from './components/ui/badge';

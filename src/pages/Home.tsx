@@ -269,10 +269,10 @@ const HomePage = () => {
           <h2 className="text-2xl font-bold mb-4">WordSurf</h2>
           <p className="mb-6 text-gray-400">Connect words, build chains, score points!</p>
           <div className="flex justify-center space-x-6 mb-8">
-            <a href="#" className="text-gray-400 hover:text-white transition">About</a>
-            <a href="#" className="text-gray-400 hover:text-white transition">Contact</a>
-            <a href="#" className="text-gray-400 hover:text-white transition">Privacy</a>
-            <a href="#" className="text-gray-400 hover:text-white transition">Terms</a>
+            <a href="#how-to-play" className="text-gray-400 hover:text-white transition">About</a>
+            <a href="#how-to-play" className="text-gray-400 hover:text-white transition">Contact</a>
+            <a href="#how-to-play" className="text-gray-400 hover:text-white transition">Privacy</a>
+            <a href="#how-to-play" className="text-gray-400 hover:text-white transition">Terms</a>
           </div>
           <p className="text-sm text-gray-500">© 2024 WordSurf. All rights reserved.</p>
         </div>
