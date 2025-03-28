@@ -38,6 +38,7 @@ const CardTitle = React.forwardRef<
       "text-2xl font-semibold leading-none tracking-tight",
       className
     )}
+    aria-hidden={props.children ? "false" : "true"} // Mark hidden if empty
     {...props}
   />
 ))
