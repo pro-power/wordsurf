@@ -8,6 +8,8 @@ import { Card, CardContent } from './components/ui/card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from './components/ui/dialog';
 import { Alert, AlertDescription } from './components/ui/alert';
 import { Badge } from './components/ui/badge';
+import ResponsiveInputField from './components/ui/ResponsiveInputField';
+import ChainDisplay from './components/ui/ChainDisplay';
 import { 
   Clock,  
   CheckCircle, 
@@ -262,7 +264,7 @@ const WordChainGame = () => {
           {/* Game Header */}
           <div className="text-center mb-10">
             <h1 className="text-4xl font-bold mb-2 bg-gradient-to-r from-blue-600 to-purple-600 text-transparent bg-clip-text">
-              WordWSurf
+              WordSurf
             </h1>
             <p className="text-gray-600">Connect words, build chains, score points!</p>
           </div>
@@ -272,7 +274,7 @@ const WordChainGame = () => {
             {/* Game Header */}
             <div className={`p-4 ${gameState === 'playing' ? 'bg-gradient-to-r from-blue-600 to-indigo-600' : 'bg-gradient-to-r from-blue-600 to-purple-600'}`}>
               <div className="flex justify-between items-center">
-                <h2 className="text-xl font-bold text-white">Word Chain Challenge</h2>
+                <h2 className="text-xl font-bold text-white">Let's get Surfing</h2>
                 {gameState === 'playing' && (
                   <div className="flex items-center text-white">
                     <Clock className="w-5 h-5 mr-1" />
@@ -325,7 +327,7 @@ const WordChainGame = () => {
                     ></div>
                   </div>
                   
-                  {/* Current Word Chain - Domino Tiles with Wave Connection */}
+                  {/* Current Word Chain - Snake Domino Tiles */}
                   <div className="mb-6">
                     <h3 className="text-sm font-semibold text-gray-500 mb-2 flex items-center">
                       <AlignJustify className="w-4 h-4 mr-1" /> Current Chain
@@ -345,137 +347,20 @@ const WordChainGame = () => {
                         </div>
                       )}
                       
-                      {/* Scrollable Container for Word Chain */}
-                      <div className="overflow-x-auto py-4 px-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100" style={{ scrollbarWidth: 'thin' }}>
-                        <div className="flex items-center" style={{ minWidth: 'max-content' }}>
-                          {currentChain.map((word, index) => {
-                            // Display either all words (if less than 8) or focus on the most recent ones
-                            const isVisible = currentChain.length <= 8 || index >= Math.max(0, currentChain.length - 8);
-                            
-                            if (!isVisible) return null;
-                            
-                            // For longer chains, add a "more words" indicator before visible words
-                            if (currentChain.length > 8 && index === Math.max(0, currentChain.length - 8)) {
-                              return (
-                                <React.Fragment key={`fragment-${index}`}>
-                                  <div className="flex-shrink-0 px-2 py-1 mr-3 text-xs italic text-gray-500">
-                                    ...{Math.max(0, currentChain.length - 8)} more words...
-                                  </div>
-                                  <div className="flex items-center">
-                                    {/* Domino Tile */}
-                                    <div 
-                                      className={`
-                                        flex-shrink-0 px-3 py-2 rounded-lg shadow-md border-2 
-                                        ${index === 0 
-                                          ? 'bg-blue-100 text-blue-800 border-blue-300' 
-                                          : index === currentChain.length - 1 
-                                            ? 'bg-green-100 text-green-800 border-green-300'
-                                            : 'bg-white text-gray-800 border-gray-200'}
-                                      `}
-                                    >
-                                      <span className="font-medium">{word}</span>
-                                      {index === currentChain.length - 1 && (
-                                        <span className="block text-xs mt-1 font-normal text-gray-500">
-                                          Last word
-                                        </span>
-                                      )}
-                                    </div>
-                                    
-                                    {/* Wave Connector Line (for all but the last tile) */}
-                                    {index < currentChain.length - 1 && (
-                                      <div className="flex-shrink-0 mx-2">
-                                        <svg width="40" height="20" className="text-blue-400">
-                                          <path 
-                                            d="M0,10 C10,5 15,15 20,10 C25,5 30,15 40,10" 
-                                            fill="none" 
-                                            stroke="currentColor" 
-                                            strokeWidth="1.5"
-                                            strokeDasharray="2,2"
-                                          />
-                                        </svg>
-                                      </div>
-                                    )}
-                                  </div>
-                                </React.Fragment>
-                              );
-                            }
-                            
-                            return (
-                              <div key={`domino-${word}-${index}`} className="flex items-center">
-                                {/* Domino Tile */}
-                                <div 
-                                  className={`
-                                    flex-shrink-0 px-3 py-2 rounded-lg shadow-md border-2 
-                                    ${index === 0 
-                                      ? 'bg-blue-100 text-blue-800 border-blue-300' 
-                                      : index === currentChain.length - 1 
-                                        ? 'bg-green-100 text-green-800 border-green-300'
-                                        : 'bg-white text-gray-800 border-gray-200'}
-                                  `}
-                                >
-                                  <span className="font-medium">{word}</span>
-                                  {index === currentChain.length - 1 && (
-                                    <span className="block text-xs mt-1 font-normal text-gray-500">
-                                      Last word
-                                    </span>
-                                  )}
-                                </div>
-                                
-                                {/* Wave Connector Line (for all but the last tile) */}
-                                {index < currentChain.length - 1 && (
-                                  <div className="flex-shrink-0 mx-2">
-                                    <svg width="40" height="20" className="text-blue-400">
-                                      <path 
-                                        d="M0,10 C10,5 15,15 20,10 C25,5 30,15 40,10" 
-                                        fill="none" 
-                                        stroke="currentColor" 
-                                        strokeWidth="1.5"
-                                        strokeDasharray="2,2"
-                                      />
-                                    </svg>
-                                  </div>
-                                )}
-                              </div>
-                            );
-                          })}
-                        </div>
-                      </div>
-                      
-                      {/* Helper Text */}
-                      {currentChain.length > 3 && (
-                        <div className="mt-2 text-xs text-gray-400 text-center">
-                          Scroll to see all words →
-                        </div>
-                      )}
+                      {/* Snake Domino Chain */}
+                      <ChainDisplay currentChain={currentChain} />
                     </div>
                   </div>
                   
                   {/* Word Input */}
-                  <form onSubmit={handleSubmitWord} className="mb-6">
-                    <div className="relative">
-                      <Input
-                        ref={inputRef}
-                        type="text"
-                        value={inputWord}
-                        onChange={(e) => setInputWord(e.target.value)}
-                        placeholder={`Enter a word starting with "${currentChain[currentChain.length - 1].slice(-1)}"`}
-                        className="pr-24 text-lg shadow-sm"
-                        autoComplete="off"
-                      />
-                      <Button 
-                        type="submit"
-                        className="absolute right-0 top-0 h-full rounded-l-none bg-blue-600 hover:bg-blue-700"
-                      >
-                        Submit
-                      </Button>
-                    </div>
-                    
-                    {message.text && (
-                      <div className={`mt-2 text-sm ${message.type === 'success' ? 'text-green-600' : 'text-red-600'}`}>
-                        {message.text}
-                      </div>
-                    )}
-                  </form>
+                  <ResponsiveInputField
+                    inputRef={inputRef}
+                    inputWord={inputWord}
+                    setInputWord={setInputWord}
+                    handleSubmitWord={handleSubmitWord}
+                    currentChain={currentChain}
+                    message={message}
+                  />
                   
                   {/* Score Display */}
                   <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
@@ -566,87 +451,22 @@ const WordChainGame = () => {
                   </div>
 
                   
-                  {/* Word History with Domino Visualization */}
+                  {/* Word History with Snake Domino Visualization */}
                   <div className="bg-white rounded-lg shadow-sm p-4">
                     <h3 className="text-lg font-bold text-gray-700 mb-3 flex items-center">
                       <BookOpenCheck className="w-5 h-5 mr-2" /> Your Word Chain
                     </h3>
                     
                     {/* Domino Visualization of Complete Word Chain */}
-                    <div className="mb-6 bg-gray-50 rounded-lg">
-                      <div className="px-4 py-3 border-b border-gray-200">
-                        <div className="flex justify-between items-center">
-                          <div className="text-sm font-medium text-gray-700">Total Words: {currentChain.length}</div>
-                          {foundBonusWord && (
-                            <div className="flex items-center text-sm font-medium text-amber-700">
-                              <Sparkles className="w-4 h-4 mr-1 text-amber-500" />
-                              Bonus Word Found
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                      
-                      <div className="p-4 overflow-x-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent" style={{ scrollbarWidth: 'thin' }}>
-                        <div className="flex flex-nowrap items-center" style={{ minWidth: 'max-content' }}>
-                          {currentChain.map((word, index) => {
-                            // Get the corresponding history item to show points
-                            const historyItem = wordHistory.find(item => item.word === word);
-                            const isSpecial = historyItem?.isBonusWord;
-                            const isFirst = index === 0;
-                            const isLast = index === currentChain.length - 1;
-                            
-                            return (
-                              <div key={`domino-history-${word}-${index}`} className="flex items-center">
-                                {/* Domino Tile */}
-                                <div 
-                                  className={`
-                                    flex-shrink-0 px-3 py-2 rounded-lg shadow-md border-2
-                                    ${isSpecial ? 'bg-amber-100 text-amber-800 border-amber-300' :
-                                    isFirst ? 'bg-blue-100 text-blue-800 border-blue-300' :
-                                    isLast ? 'bg-green-100 text-green-800 border-green-300' :
-                                    'bg-white text-gray-800 border-gray-200'}
-                                  `}
-                                >
-                                  <div className="flex items-center gap-1">
-                                    {isSpecial && <Sparkles className="w-4 h-4 text-amber-500" />}
-                                    <span className="font-medium">{word}</span>
-                                  </div>
-                                  {historyItem && (
-                                    <div className="text-xs font-normal mt-1 text-center text-gray-500">
-                                      +{historyItem.score}
-                                    </div>
-                                  )}
-                                </div>
-                                
-                                {/* Wave Connector Line */}
-                                {index < currentChain.length - 1 && (
-                                  <div className="flex-shrink-0 mx-2">
-                                    <svg width="40" height="20" className="text-blue-400">
-                                      <path 
-                                        d="M0,10 C10,5 15,15 20,10 C25,5 30,15 40,10" 
-                                        fill="none" 
-                                        stroke="currentColor" 
-                                        strokeWidth="1.5"
-                                        strokeDasharray="2,2"
-                                      />
-                                    </svg>
-                                  </div>
-                                )}
-                              </div>
-                            );
-                          })}
-                        </div>
-                      </div>
-                      
-                      {currentChain.length > 5 && (
-                        <div className="px-4 py-2 border-t border-gray-200 text-xs text-gray-400 text-center">
-                           words →
-                        </div>
-                      )}
-                    </div>
+                    <ChainDisplay 
+                      currentChain={currentChain}
+                      wordHistory={wordHistory}
+                      gameOver={true}
+                      bonusWord={bonusWord}
+                    />
                     
                     {/* Word List Table */}
-                    <h4 className="text-sm font-semibold text-gray-500 mb-2">Word Details</h4>
+                    <h4 className="text-sm font-semibold text-gray-500 mb-2 mt-4">Surf Score</h4>
                     <div className="max-h-40 overflow-y-auto pr-2">
                       <table className="w-full text-left">
                         <thead>
