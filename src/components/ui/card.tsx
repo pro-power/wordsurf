@@ -29,20 +29,24 @@ const CardHeader = React.forwardRef<
 CardHeader.displayName = "CardHeader"
 
 const CardTitle = React.forwardRef<
-  HTMLParagraphElement,
+  HTMLHeadingElement,
   React.HTMLAttributes<HTMLHeadingElement>
->(({ className, ...props }, ref) => (
-  <h3
-    ref={ref}
-    className={cn(
-      "text-2xl font-semibold leading-none tracking-tight",
-      className
-    )}
-    aria-hidden={props.children ? "false" : "true"} // Mark hidden if empty
-    {...props}
-  />
-))
-CardTitle.displayName = "CardTitle"
+>(({ className, children, ...props }, ref) => {
+  return (
+    <h3
+      ref={ref}
+      className={cn(
+        "text-2xl font-semibold leading-none tracking-tight",
+        className
+      )}
+      {...props}
+    >
+      {children || <span className="sr-only">Untitled</span>}
+    </h3>
+  );
+});
+
+CardTitle.displayName = "CardTitle";
 
 const CardContent = React.forwardRef<
   HTMLDivElement,
