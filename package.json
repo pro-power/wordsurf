@@ -2,6 +2,7 @@
   "name": "dominole",
   "version": "0.1.0",
   "private": true,
+  "homepage": ".",
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.4",
     "@radix-ui/react-slider": "^1.2.2",
