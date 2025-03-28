@@ -44,7 +44,7 @@ const WordChainGame = () => {
   const [bonusAnimationActive, setBonusAnimationActive] = useState(false);
   const [showBonusHint, setShowBonusHint] = useState(false);
   const [showDefinitionHint, setShowDefinitionHint] = useState(false);
-const [bonusWordDefinition, setBonusWordDefinition] = useState('');
+  const [bonusWordDefinition, setBonusWordDefinition] = useState('');
   
   const inputRef = useRef(null);
   const timerRef = useRef(null);
@@ -76,45 +76,45 @@ const [bonusWordDefinition, setBonusWordDefinition] = useState('');
   }, []);
 
   // Load the bonus word definition when the game starts
-useEffect(() => {
-  const loadBonusWordDefinition = async () => {
-    if (bonusWord) {
-      try {
-        const definition = await wordService.getWordDefinition(bonusWord);
-        setBonusWordDefinition(definition);
-      } catch (error) {
-        console.error('Error loading bonus word definition:', error);
+  useEffect(() => {
+    const loadBonusWordDefinition = async () => {
+      if (bonusWord) {
+        try {
+          const definition = await wordService.getWordDefinition(bonusWord);
+          setBonusWordDefinition(definition);
+        } catch (error) {
+          console.error('Error loading bonus word definition:', error);
+        }
       }
-    }
-  };
+    };
 
-  if (gameState === 'playing') {
-    loadBonusWordDefinition();
-  }
-}, [gameState, bonusWord]);
+    if (gameState === 'playing') {
+      loadBonusWordDefinition();
+    }
+  }, [gameState, bonusWord]);
 
   // Timer countdown during game
-useEffect(() => {
-  if (gameState === 'playing') {
-    timerRef.current = setInterval(() => {
-      setTimeLeft((prev) => {
-        // Show bonus hint when 25 seconds have passed (35 seconds remaining)
-        if (prev === 35 && !showBonusHint) {
-          setShowBonusHint(true);
-        }
-        
-        if (prev <= 1) {
-          clearInterval(timerRef.current);
-          setGameState('finished');
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-  }
+  useEffect(() => {
+    if (gameState === 'playing') {
+      timerRef.current = setInterval(() => {
+        setTimeLeft((prev) => {
+          // Show bonus hint when 25 seconds have passed (35 seconds remaining)
+          if (prev === 35 && !showBonusHint) {
+            setShowBonusHint(true);
+          }
+          
+          if (prev <= 1) {
+            clearInterval(timerRef.current);
+            setGameState('finished');
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+    }
 
-  return () => clearInterval(timerRef.current);
-}, [gameState, showBonusHint]);
+    return () => clearInterval(timerRef.current);
+  }, [gameState, showBonusHint]);
 
   // Focus input when game starts
   useEffect(() => {
@@ -123,53 +123,53 @@ useEffect(() => {
     }
   }, [gameState]);
 
-
   // Check score during gameplay
-useEffect(() => {
-  if (gameState === 'playing' && score > 1500 && timeLeft <= 30 && !showDefinitionHint) {
-    setShowDefinitionHint(true);
-  }
-}, [score, timeLeft, gameState, showDefinitionHint]);
+  useEffect(() => {
+    if (gameState === 'playing' && score > 1500 && timeLeft <= 30 && !showDefinitionHint) {
+      setShowDefinitionHint(true);
+    }
+  }, [score, timeLeft, gameState, showDefinitionHint]);
 
-
-const BonusHints = () => {
-  return (
-    <div className="mt-4 bg-amber-50 rounded-lg p-3 border border-amber-200">
-      <h4 className="text-sm font-semibold text-amber-800 flex items-center mb-2">
-        <Sparkles className="w-4 h-4 mr-1.5 text-amber-500" />
-        Bonus Word Hints
-      </h4>
+  // Show bonus hint notification
+  useEffect(() => {
+    if (showBonusHint && bonusWord) {
+      setAlertMessage(`First letter hint for the bonus word is " ${bonusWord.charAt(0).toUpperCase()}"`);
+      setAlertType('info');
+      setShowAlert(true);
       
-      {!showBonusHint && !showDefinitionHint && (
-        <div className="text-sm text-amber-700">
-          Hints will appear as you play...
-        </div>
-      )}
-    </div>
-  );
-};
+      // Auto-hide after 3 seconds
+      setTimeout(() => setShowAlert(false), 3000);
+    }
+  }, [showBonusHint, bonusWord]);
 
-useEffect(() => {
-  if (showBonusHint) {
-    setAlertMessage(`First letter hint for the bonus word is " ${bonusWord.charAt(0).toUpperCase()}"`);
-    setAlertType('info');
-    setShowAlert(true);
-    
-    // Auto-hide after 3 seconds
-    setTimeout(() => setShowAlert(false), 3000);
-  }
-}, [showBonusHint]);
+  // Show definition hint notification
+  useEffect(() => {
+    if (showDefinitionHint && bonusWordDefinition) {
+      setAlertMessage(`You unlocked the bonus word definition hint: ${bonusWordDefinition}`);
+      setAlertType('info');
+      setShowAlert(true);
+      
+      // Auto-hide after 3 seconds
+      setTimeout(() => setShowAlert(false), 3000);
+    }
+  }, [showDefinitionHint, bonusWordDefinition]);
 
-useEffect(() => {
-  if (showDefinitionHint) {
-    setAlertMessage(`You unlocked the bonus word definition hint: ${bonusWordDefinition}`);
-    setAlertType('info');
-    setShowAlert(true);
-    
-    // Auto-hide after 3 seconds
-    setTimeout(() => setShowAlert(false), 3000);
-  }
-}, [showDefinitionHint]);
+  const BonusHints = () => {
+    return (
+      <div className="mt-4 bg-amber-50 rounded-lg p-3 border border-amber-200">
+        <h4 className="text-sm font-semibold text-amber-800 flex items-center mb-2">
+          <Sparkles className="w-4 h-4 mr-1.5 text-amber-500" />
+          Bonus Word Hints
+        </h4>
+        
+        {!showBonusHint && !showDefinitionHint && (
+          <div className="text-sm text-amber-700">
+            Hints will appear as you play...
+          </div>
+        )}
+      </div>
+    );
+  };
 
   const startGame = () => {
     // If we have a word of the day, start the game
@@ -181,6 +181,8 @@ useEffect(() => {
       setWordHistory([]);
       setFoundBonusWord(false);
       setMessage({ text: '', type: '' });
+      setShowBonusHint(false);
+      setShowDefinitionHint(false);
     } else {
       setAlertMessage('No word of the day available. Please reload the page.');
       setAlertType('error');
@@ -321,11 +323,13 @@ useEffect(() => {
           <Alert className={`shadow-lg border-l-4 ${
             alertType === 'success' ? 'border-green-500 bg-green-50' : 
             alertType === 'warning' ? 'border-yellow-500 bg-yellow-50' : 
+            alertType === 'info' ? 'border-blue-500 bg-blue-50' :
             'border-red-500 bg-red-50'
           }`}>
             <AlertDescription className="flex items-center">
               {alertType === 'success' ? <CheckCircle className="w-5 h-5 mr-2 text-green-500" /> : 
                alertType === 'warning' ? <AlertTriangle className="w-5 h-5 mr-2 text-yellow-500" /> : 
+               alertType === 'info' ? <Sparkles className="w-5 h-5 mr-2 text-blue-500" /> :
                <XCircle className="w-5 h-5 mr-2 text-red-500" />}
               {alertMessage}
             </AlertDescription>
@@ -448,9 +452,8 @@ useEffect(() => {
                     </div>
                   </div>
 
-                  {gameState === 'playing' && (
-  <BonusHints />
-)}
+                  {/* Bonus Hints */}
+                  <BonusHints />
                   
                   {/* Bonus Word Animation */}
                   {bonusAnimationActive && (
